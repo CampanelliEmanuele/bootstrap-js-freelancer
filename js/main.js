@@ -21,8 +21,7 @@ let discountCodes = [
 
 let AllValidInputs = true;
 
-/* Data structures */
-
+/* BASE AND BONUS EXERCISE "MAIN" */
 const submitBtn = document.getElementById("submitBtn");
 
 submitBtn.addEventListener("click", function (event) {
@@ -50,6 +49,8 @@ submitBtn.addEventListener("click", function (event) {
     }
 
 })
+
+/* BASE AND BONUS EXERCISE FUNCTIONS */
 
 /**
  * Calculate the price based on input parametes.
@@ -135,18 +136,21 @@ function showRecup(firstName, lastName, email, hoursOfWork, workType, finalPrice
     `;
 }
 
-
-
 //////////////////////////////////////// SUPERBONUS //////////////////////////////////////// 
 
 /* Main variables for the superbonus exercise */
-
 const jobKeys = {
     imgKey: "imgUrl",
     imgAltKey: "imgAlt",
     nameKey: "jobName",
     descriptionKey: "jobDescription"
 }
+
+/* SUPERBONUS MAIN */
+let jobs = createJobsArray();
+printCarsOnHtml(jobs);
+
+/* SUPERBONUS FUNCTIONS */
 
 /**
  * Can generate a custom job.
@@ -165,11 +169,7 @@ function createJob(imgUrl, imgAlt, jobName, jobDescription) {
     return job;
 }
 
-/* SUPERBONUS MAIN */
-let jobs = createJobsArray();
-printCarsOnHtml(jobs);
-
-/* SUPERBONUS FUNCTIONS */
+/* This is just a code container function. */
 function createJobsArray() {
     let jobs = [];
     jobs.push(createJob("./img/assets/portfolio/cabin.png", "Cabine-image", "Cabin Website", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic qui exercitationem cum libero eius, porro expedita? Laborum deserunt sequi autem optio nihil rem. Dicta eius perspiciatis voluptates quos molestiae iusto?"));
@@ -181,6 +181,7 @@ function createJobsArray() {
     return jobs;
 }
 
+/* This is just a code container function. */
 function printCarsOnHtml(jobs) {
     document.getElementById("jobsContainer").innerHTML = ''
     jobs.forEach((job, index) => {
