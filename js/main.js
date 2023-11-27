@@ -4,9 +4,7 @@ const workTypes = {
     analysis: "projectAnalysis"
 }
 
-
-
-const submitBtn = document.getElementById("submitBtn");
+const submitBtn = document.getElementById("submitBtn")
 
 submitBtn.addEventListener("click", function (event) {
     event.preventDefault();
@@ -15,7 +13,7 @@ submitBtn.addEventListener("click", function (event) {
     let lastName = document.getElementById("lastNameInput").value;
     let email = document.getElementById("emailInput").value;
     let hoursOfWorks = document.getElementById("hoursRequestedInput").value;
-    let workType = document.getElementById("workType").value;
+    let workType = document.getElementById("workTypeInput").value;
     let discountCode = document.getElementById("discountCodeInput").value;
     let workCommission = document.getElementById("workCommissionInput").value;
 
@@ -24,18 +22,21 @@ submitBtn.addEventListener("click", function (event) {
 })
 
 function calculatePrice(workType, discountCode) {
-    let workTypesArr = Object.values(workTypes);    /* Array with the values of workTypes */
-    if (workTypesArr.includes(workType)) {
-        switch (workTypes) {
-            case workType.backend:
+    let arr = Object.values(workTypes);    /* Array with the values of workTypes */
+
+    if (arr.includes(workType)) {
+        switch (workType) {
+            case workTypes.backend:
                 console.log("backend");
                 break;
-            case workType.frontend:
+            case workTypes.frontend:
                 console.log("frontend");
                 break;
-            case workType.analysis:
+            case workTypes.analysis:
                 console.log("analysis");
                 break;
+            default:
+                console.log("default");
         }
     }
 }
