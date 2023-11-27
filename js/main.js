@@ -24,51 +24,52 @@ let AllValidInputs = true;
 const submitBtn = document.getElementById("submitBtn");
 
 submitBtn.addEventListener("click", function (event) {
-    // event.preventDefault();  // commented out for the "required" attributes to work.
+    event.preventDefault();
     document.getElementById("discountCodeInput").style.color = "";
 
     let firstName = document.getElementById("firstNameInput").value;
     let lastName = document.getElementById("lastNameInput").value;
     let email = document.getElementById("emailInput").value;
-    let hoursOfWorks = document.getElementById("hoursRequestedInput").value;
-    hoursOfWorks = parseFloat(hoursOfWorks);
+    let hoursOfWork = document.getElementById("hoursRequestedInput").value;
+    hoursOfWork = parseFloat(hoursOfWork);
     let workType = document.getElementById("workTypeInput").value;
     let discountCode = document.getElementById("discountCodeInput").value;
     let workCommission = document.getElementById("workCommissionInput").value;
 
-    let finalPrice = calculatePrice(workType, discountCode, hoursOfWorks);
+    let finalPrice = calculatePrice(workType, discountCode, hoursOfWork);
 
     if (AllValidInputs) {
         document.getElementById("recupSection").style.display = "block";
-        showRecup(firstName, lastName, email, hoursOfWorks, workType, finalPrice);
+        showRecup(firstName, lastName, email, hoursOfWork, workType, finalPrice);
     } else {
         document.getElementById("recupSection").style.display = "none";
     }
 
 })
 
-function showRecup(firstName, lastName, email, hoursOfWorks, workType, finalPrice) {
-    document.getElementById("recup").innerHTML = `
-        <b>${firstName} ${lastName}</b> has required a service of <b>${workType}</b> for <b>${hoursOfWorks.toFixed(0)} hours</b>, for a total price of <b>${finalPrice}€</b>.
-        We will send you and email at <b>${email}</b> to confirm the job.
-    `;
-}
-
-function calculatePrice(workType, discountCode, hoursOfWorks) {
+/**
+ * Calculate the price.
+ * @param {string} workType 
+ * @param {string} discountCode 
+ * @param {number} hoursOfWork 
+ * @returns the final price.
+ */
+function calculatePrice(workType, discountCode, hoursOfWork) {
     let finalPrice = -1;
+    AllValidInputs = true;
 
     let arr = Object.values(workTypes);    /* Array with the values of workTypes */
 
     if (arr.includes(workType)) {
         switch (workType) {
             case workTypes.backend:
-                finalPrice = hoursOfWorks * prices[workTypes.backend];
+                finalPrice = hoursOfWork * prices[workTypes.backend];
                 break;
             case workTypes.frontend:
-                finalPrice = hoursOfWorks * prices[workTypes.frontend];
+                finalPrice = hoursOfWork * prices[workTypes.frontend];
                 break;
             case workTypes.analysis:
-                finalPrice = hoursOfWorks * prices[workTypes.analysis];
+                finalPrice = hoursOfWork * prices[workTypes.analysis];
                 break;
             default:
         }
@@ -85,8 +86,6 @@ function calculatePrice(workType, discountCode, hoursOfWorks) {
 function applyDiscount(discountCode, finalPrice) {
     /* If there is a valid discount code */
     if (discountCodes.includes(discountCode)) {
-        AllValidInputs = true;
-
         /* Removing the entered discount code from the array */
         discountCodes = discountCodes.filter(code => {
             return code !== discountCode;
@@ -104,4 +103,12 @@ function applyDiscount(discountCode, finalPrice) {
 function invalidDiscountWarn(discountCode) {
     document.getElementById("discountCodeInput").style.color = "red";
     alert(`Your discount code ${discountCode} is invalid or has expired.\nPlease try another one.`)
+}
+
+
+function showRecup(firstName, lastName, email, hoursOfWork, workType, finalPrice) {
+    document.getElementById("recup").innerHTML = `
+        <b>${firstName} ${lastName}</b> has required a service of <b>${workType}</b> for <b>${hoursOfWork.toFixed(0)} hours</b>, for a total price of <b>${finalPrice}€</b>.
+        We will send you and email at <b>${email}</b> to confirm the job.
+    `;
 }
