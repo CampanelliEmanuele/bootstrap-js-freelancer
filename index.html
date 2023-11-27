@@ -131,30 +131,30 @@
                     <!-- First name -->
                     <div class="col-md-6">
                         <label for="firstNameInput" class="form-label fs-5">First name</label>
-                        <input type="text" class="form-control" id="firstNameInput"
+                        <input required type="text" class="form-control" id="firstNameInput"
                             placeholder="Enter your first name..." id="firstNameInput">
                     </div>
                     <!-- Last name -->
                     <div class="col-md-6">
                         <label for="lastNameInput" class="form-label fs-5">Last name</label>
-                        <input type="text" class="form-control" id="lastNameInput" placeholder="Enter your last name..."
+                        <input required type="text" class="form-control" id="lastNameInput" placeholder="Enter your last name..."
                             id="lastNameInput">
                     </div>
                     <!-- Email address -->
                     <div class="col-md-6">
                         <label for="emailInput" class="form-label fs-5">Email address</label>
-                        <input type="text" class="form-control" id="emailInput" placeholder="name@exmaple.com">
+                        <input required type="text" class="form-control" id="emailInput" placeholder="name@exmaple.com">
                     </div>
                     <!-- Hours requested -->
                     <div class="col-md-6">
                         <label for="hoursRequestedInput" class="form-label fs-5">Hours requested</label>
-                        <input type="number" class="form-control" id="hoursRequestedInput"
+                        <input required type="number" class="form-control" id="hoursRequestedInput"
                             placeholder="Hours requested...">
                     </div>
                     <!-- Type of work -->
                     <div class="col-md-6">
                         <label for="workTypeInput" class="form-label fs-5">Type of work</label>
-                        <select class="form-select" id="workTypeInput">
+                        <select required class="form-select" id="workTypeInput">
                             <option selected>Type of work</option>
                             <option value="backend">Backend</option>
                             <option value="frontend">Frontend</option>
@@ -169,7 +169,7 @@
                     <!-- Message -->
                     <div class="col-12">
                         <label for="workCommissionInput" class="form-label fs-5">Message</label>
-                        <textarea class="form-control" id="workCommissionInput" rows="4"
+                        <textarea required class="form-control" id="workCommissionInput" rows="4"
                             placeholder="Specify your work commission..."></textarea>
                     </div>
                     <!-- Submit btn -->
@@ -181,7 +181,7 @@
         </div>
 
         <!-- RECUP -->
-        <div class="container-fluid bg-body-tertiary pb-5" id="recupSection" style="display: none;">
+        <div class="container-fluid bg-body-tertiary py-5" id="recupSection" style="display: none;">
             <div class="container text-center">
                 <h3 class="fw-semibold py-3">YOUR OFFER RECUP</h3>
                 <p id="recup"></p>

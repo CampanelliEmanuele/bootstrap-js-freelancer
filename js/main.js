@@ -1,23 +1,30 @@
+/* Data structures */
+
+/* Type of works */
 const workTypes = {
     backend: "backend",
     frontend: "frontend",
     analysis: "projectAnalysis"
 }
 
+/* Work types */
 const prices = {
     [workTypes.backend]: 20.50,
     [workTypes.frontend]: 15.30,
     [workTypes.analysis]: 33.60
 }
 
+/* Discount codes */
 let discountCodes = [
     "YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"
 ]
 
-const submitBtn = document.getElementById("submitBtn")
+let AllValidInputs = true;
+
+const submitBtn = document.getElementById("submitBtn");
 
 submitBtn.addEventListener("click", function (event) {
-    event.preventDefault();
+    // event.preventDefault();  // commented out for the "required" attributes to work.
     document.getElementById("discountCodeInput").style.color = "";
 
     let firstName = document.getElementById("firstNameInput").value;
@@ -31,13 +38,21 @@ submitBtn.addEventListener("click", function (event) {
 
     let finalPrice = calculatePrice(workType, discountCode, hoursOfWorks);
 
-    document.getElementById("recupSection").style.display = "block";
-    document.getElementById("recup").innerHTML += `
-        <b>${firstName} ${lastName}</b> has required a service of <b>${workType}</b> for <b>${hoursOfWorks.toFixed(0)} hours</b>, for a total price of <b>${finalPrice}€</b>.
-        We will send you and email at <b>${email}</b> to confirm the job!
-    `;
+    if (AllValidInputs) {
+        document.getElementById("recupSection").style.display = "block";
+        showRecup(firstName, lastName, email, hoursOfWorks, workType, finalPrice);
+    } else {
+        document.getElementById("recupSection").style.display = "none";
+    }
 
 })
+
+function showRecup(firstName, lastName, email, hoursOfWorks, workType, finalPrice) {
+    document.getElementById("recup").innerHTML = `
+        <b>${firstName} ${lastName}</b> has required a service of <b>${workType}</b> for <b>${hoursOfWorks.toFixed(0)} hours</b>, for a total price of <b>${finalPrice}€</b>.
+        We will send you and email at <b>${email}</b> to confirm the job.
+    `;
+}
 
 function calculatePrice(workType, discountCode, hoursOfWorks) {
     let finalPrice = -1;
@@ -64,15 +79,14 @@ function calculatePrice(workType, discountCode, hoursOfWorks) {
         finalPrice = applyDiscount(discountCode, finalPrice)
     }
 
-    console.log(discountCodes)
-    console.log(finalPrice)
-
     return finalPrice
 }
 
 function applyDiscount(discountCode, finalPrice) {
     /* If there is a valid discount code */
     if (discountCodes.includes(discountCode)) {
+        AllValidInputs = true;
+
         /* Removing the entered discount code from the array */
         discountCodes = discountCodes.filter(code => {
             return code !== discountCode;
@@ -81,6 +95,7 @@ function applyDiscount(discountCode, finalPrice) {
         /* Apply the discount */
         return (finalPrice * 0.75).toFixed(2);
     } else {
+        AllValidInputs = false;
         invalidDiscountWarn(discountCode);
         return finalPrice;
     }
