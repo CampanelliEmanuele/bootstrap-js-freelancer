@@ -24,5 +24,18 @@ submitBtn.addEventListener("click", function (event) {
 })
 
 function calculatePrice(workType, discountCode) {
-    if (workType )
+    let workTypesArr = Object.values(workTypes);    /* Array with the values of workTypes */
+    if (workTypesArr.includes(workType)) {
+        switch (workTypes) {
+            case workType.backend:
+                console.log("backend");
+                break;
+            case workType.frontend:
+                console.log("frontend");
+                break;
+            case workType.analysis:
+                console.log("analysis");
+                break;
+        }
+    }
 }
