@@ -1,4 +1,4 @@
-/* Data structures */
+/* Main variables for the base exercise */
 
 /* Type of works */
 const workTypes = {
@@ -20,6 +20,8 @@ let discountCodes = [
 ]
 
 let AllValidInputs = true;
+
+/* Data structures */
 
 const submitBtn = document.getElementById("submitBtn");
 
@@ -131,4 +133,70 @@ function showRecup(firstName, lastName, email, hoursOfWork, workType, finalPrice
         <b>${firstName} ${lastName}</b> has required a service of <b>${workType}</b> for <b>${hoursOfWork.toFixed(0)} hours</b>, for a total price of <b>${finalPrice}€</b>.
         We will send you and email at <b>${email}</b> to confirm the job.
     `;
+}
+
+
+
+//////////////////////////////////////// SUPERBONUS //////////////////////////////////////// 
+
+/* Main variables for the superbonus exercise */
+
+const jobKeys = {
+    imgKey: "imgUrl",
+    imgAltKey: "imgAlt",
+    nameKey: "jobName",
+    descriptionKey: "jobDescription"
+}
+
+/**
+ * Can generate a custom job.
+ * @param {string} imgUrl 
+ * @param {string} jobName 
+ * @param {string} jobDescription 
+ * @returns 
+ */
+function createJob(imgUrl, imgAlt, jobName, jobDescription) {
+    const job = {
+        [jobKeys.imgKey]: imgUrl,
+        [jobKeys.imgAltKey]: imgAlt,
+        [jobKeys.nameKey]: jobName,
+        [jobKeys.descriptionKey]: jobDescription
+    }
+    return job;
+}
+
+/* SUPERBONUS MAIN */
+let jobs = createJobsArray();
+printCarsOnHtml(jobs);
+
+/* SUPERBONUS FUNCTIONS */
+function createJobsArray() {
+    let jobs = [];
+    jobs.push(createJob("./img/assets/portfolio/cabin.png", "Cabine-image", "Cabin Website", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic qui exercitationem cum libero eius, porro expedita? Laborum deserunt sequi autem optio nihil rem. Dicta eius perspiciatis voluptates quos molestiae iusto?"));
+    jobs.push(createJob("./img/assets/portfolio/cake.png", "Cake-image", "Cake Website", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic qui exercitationem cum libero eius, porro expedita? Laborum deserunt sequi autem optio nihil rem. Dicta eius perspiciatis voluptates quos molestiae iusto?"));
+    jobs.push(createJob("./img/assets/portfolio/circus.png", "Circus-image", "Circus Website", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic qui exercitationem cum libero eius, porro expedita? Laborum deserunt sequi autem optio nihil rem. Dicta eius perspiciatis voluptates quos molestiae iusto?"));
+    jobs.push(createJob("./img/assets/portfolio/game.png", "Game-image", "Game Website", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic qui exercitationem cum libero eius, porro expedita? Laborum deserunt sequi autem optio nihil rem. Dicta eius perspiciatis voluptates quos molestiae iusto?"));
+    jobs.push(createJob("./img/assets/portfolio/safe.png", "Safe-image", "Safe Website", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic qui exercitationem cum libero eius, porro expedita? Laborum deserunt sequi autem optio nihil rem. Dicta eius perspiciatis voluptates quos molestiae iusto?"));
+    jobs.push(createJob("./img/assets/portfolio/submarine.png", "Submarine-image", "Submarine Website", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic qui exercitationem cum libero eius, porro expedita? Laborum deserunt sequi autem optio nihil rem. Dicta eius perspiciatis voluptates quos molestiae iusto?"));
+    return jobs;
+}
+
+function printCarsOnHtml(jobs) {
+    document.getElementById("jobsContainer").innerHTML = ''
+    jobs.forEach((job, index) => {
+        document.getElementById("jobsContainer").innerHTML += `
+        <!-- JOB CARD n.${index + 1} -->
+        <div class="col col-sm-6 col-md-6 col-lg-4">
+            <div class="card text-center">
+                <img src="${job[jobKeys.imgKey]}" class="card-img-top" alt="${job[jobKeys.imgAltKey]}">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold pb-1">${job[jobKeys.nameKey]}</h5>
+                    <p class="card-text">${job[jobKeys.descriptionKey]}</p>
+                    <a href="#" class="btn btn-info text-black me-3">Preview</a>
+                    <a href="#" class="btn border border-info text-info">View site</a>
+                </div>
+            </div>
+        </div>
+        `
+    })
 }
