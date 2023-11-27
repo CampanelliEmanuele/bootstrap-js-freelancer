@@ -18,6 +18,7 @@ const submitBtn = document.getElementById("submitBtn")
 
 submitBtn.addEventListener("click", function (event) {
     event.preventDefault();
+    document.getElementById("discountCodeInput").style.color = "";
 
     let firstName = document.getElementById("firstNameInput").value;
     let lastName = document.getElementById("lastNameInput").value;
@@ -51,15 +52,35 @@ function calculatePrice(workType, discountCode, hoursOfWorks) {
             default:
         }
     }
+    finalPrice = finalPrice.toFixed(2)
 
+    if (discountCode !== "") {
+        finalPrice = applyDiscount(discountCode, finalPrice)
+    }
+
+    console.log(discountCodes)
+    console.log(finalPrice)
+
+    return finalPrice
+}
+
+function applyDiscount(discountCode, finalPrice) {
+    /* If there is a valid discount code */
     if (discountCodes.includes(discountCode)) {
         /* Removing the entered discount code from the array */
         discountCodes = discountCodes.filter(code => {
             return code !== discountCode;
         })
 
-        finalPrice = (finalPrice * 0.75).toFixed(2)
+        /* Apply the discount */
+        return (finalPrice * 0.75).toFixed(2);
+    } else {
+        invalidDiscountWarn(discountCode);
+        return finalPrice;
     }
+}
 
-    return finalPrice
+function invalidDiscountWarn(discountCode) {
+    document.getElementById("discountCodeInput").style.color = "red";
+    alert("Your discount code is invalid or has expired.\nPlease try another one.")
 }
