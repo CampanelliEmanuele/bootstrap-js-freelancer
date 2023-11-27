@@ -27,6 +27,7 @@ submitBtn.addEventListener("click", function (event) {
     event.preventDefault();
     document.getElementById("discountCodeInput").style.color = "";
 
+    /* Getting inputs */
     let firstName = document.getElementById("firstNameInput").value;
     let lastName = document.getElementById("lastNameInput").value;
     let email = document.getElementById("emailInput").value;
@@ -38,6 +39,7 @@ submitBtn.addEventListener("click", function (event) {
 
     let finalPrice = calculatePrice(workType, discountCode, hoursOfWork);
 
+    /* If there are no issues can show a recup */
     if (AllValidInputs) {
         document.getElementById("recupSection").style.display = "block";
         showRecup(firstName, lastName, email, hoursOfWork, workType, finalPrice);
@@ -48,7 +50,7 @@ submitBtn.addEventListener("click", function (event) {
 })
 
 /**
- * Calculate the price.
+ * Calculate the price based on input parametes.
  * @param {string} workType 
  * @param {string} discountCode 
  * @param {number} hoursOfWork 
@@ -83,6 +85,12 @@ function calculatePrice(workType, discountCode, hoursOfWork) {
     return finalPrice
 }
 
+/**
+ * Discount price based on the validity of the discount code, otherwise it shows an error message.
+ * @param {string} discountCode 
+ * @param {number} finalPrice 
+ * @returns discounted final price
+ */
 function applyDiscount(discountCode, finalPrice) {
     /* If there is a valid discount code */
     if (discountCodes.includes(discountCode)) {
@@ -100,12 +108,24 @@ function applyDiscount(discountCode, finalPrice) {
     }
 }
 
+/**
+ * Shows an error message to the user.
+ * @param {string} discountCode 
+ */
 function invalidDiscountWarn(discountCode) {
     document.getElementById("discountCodeInput").style.color = "red";
     alert(`Your discount code ${discountCode} is invalid or has expired.\nPlease try another one.`)
 }
 
-
+/**
+ * Shows a little recup.
+ * @param {string} firstName 
+ * @param {string} lastName 
+ * @param {string} email 
+ * @param {number} hoursOfWork 
+ * @param {string} workType 
+ * @param {string} finalPrice 
+ */
 function showRecup(firstName, lastName, email, hoursOfWork, workType, finalPrice) {
     document.getElementById("recup").innerHTML = `
         <b>${firstName} ${lastName}</b> has required a service of <b>${workType}</b> for <b>${hoursOfWork.toFixed(0)} hours</b>, for a total price of <b>${finalPrice}€</b>.
