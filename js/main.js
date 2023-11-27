@@ -24,12 +24,18 @@ submitBtn.addEventListener("click", function (event) {
     let lastName = document.getElementById("lastNameInput").value;
     let email = document.getElementById("emailInput").value;
     let hoursOfWorks = document.getElementById("hoursRequestedInput").value;
-    hoursOfWorks = parseFloat(hoursOfWorks).toFixed(2);
+    hoursOfWorks = parseFloat(hoursOfWorks);
     let workType = document.getElementById("workTypeInput").value;
     let discountCode = document.getElementById("discountCodeInput").value;
     let workCommission = document.getElementById("workCommissionInput").value;
 
-    let price = calculatePrice(workType, discountCode, hoursOfWorks);
+    let finalPrice = calculatePrice(workType, discountCode, hoursOfWorks);
+
+    document.getElementById("recupSection").style.display = "block";
+    document.getElementById("recup").innerHTML += `
+        <b>${firstName} ${lastName}</b> has required a service of <b>${workType}</b> for <b>${hoursOfWorks.toFixed(0)} hours</b>, for a total price of <b>${finalPrice}€</b>.
+        We will send you and email at <b>${email}</b> to confirm the job!
+    `;
 
 })
 
@@ -82,5 +88,5 @@ function applyDiscount(discountCode, finalPrice) {
 
 function invalidDiscountWarn(discountCode) {
     document.getElementById("discountCodeInput").style.color = "red";
-    alert("Your discount code is invalid or has expired.\nPlease try another one.")
+    alert(`Your discount code ${discountCode} is invalid or has expired.\nPlease try another one.`)
 }
